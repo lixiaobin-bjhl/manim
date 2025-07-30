@@ -26,7 +26,7 @@ class ChaseProblem(Scene):
         self.play(Write(title))
         self.wait(1)
         self.play(title.animate.to_edge(UP, buff=0.5))
-        self.wait(0.5)
+        self.wait(2)
 
         formula = MathTex(
             r"\text{追上时间}=\frac{\text{路程差}}{\text{速度差}}",
@@ -56,14 +56,14 @@ class ChaseProblem(Scene):
         name_a = Text("小明", color=BLUE, font_size=24).next_to(person_a, DOWN, buff=0.2)
         name_b = Text("小红", color=PINK, font_size=24).next_to(person_b, DOWN, buff=0.2)
         self.play(Write(name_a), Write(name_b))
-        self.wait(0.5)
+        self.wait(2)
 
         # 6）初始距离标注
         init_line = Line(person_b.get_bottom(), person_a.get_bottom(), color=YELLOW)
         init_label = MathTex(r"16\,\text{m}", color=YELLOW, font_size=24)\
                          .next_to(init_line, UP, buff=0.2)
         self.play(Create(init_line), Write(init_label))
-        self.wait(1)
+        self.wait(2)
 
         # 7）速度标注
         speed_a = MathTex(r"1\,\text{m/s}", color=RED, font_size=30)\
@@ -71,7 +71,7 @@ class ChaseProblem(Scene):
         speed_b = MathTex(r"3\text{m/s}", color=GREEN, font_size=30)\
                     .next_to(person_b, UP, buff=0.3)
         self.play(Write(speed_a), Write(speed_b))
-        self.wait(1)
+        self.wait(3)
 
         # 8）时间计算展示
         time_calc = MathTex(r"\frac{16\,\text{m}}{3,\text{m/s}-1\,\text{m/s}}=8\,\text{秒}", font_size=32)\

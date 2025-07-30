@@ -17,34 +17,34 @@ class ChickenRabbitProblem(Scene):
         problem = Text("问题：头共 10 只，脚共 28 只，问鸡兔各几只？",
                        font_size=36, color=BLUE).next_to(title, DOWN, buff=0.2)
         self.play(Write(title), Write(problem))
-        self.wait(1)
+        self.wait(2)
 
         # STEP 2：摆出 10 只"鸡"（中间偏上）
         animals = VGroup(*[
             SVGMobject("chicken.svg").scale(0.3).set_color(YELLOW)
             for _ in range(heads)
         ])
-        animals.arrange(RIGHT, buff=0.5).shift(UP * 0.5)
+        animals.arrange(RIGHT, buff=0.5).shift(UP * 0.8)
         self.play(FadeIn(animals, lag_ratio=0.1))
-        self.wait(0.5)
+        self.wait(2)
 
         # STEP 3：详细计算初始脚数（左下角）
         # 先展示"假设全是鸡"
         assumption = Text("假设全是鸡：", font_size=30).to_corner(DL, buff=0).shift(UP*0.8)
         self.play(Write(assumption))
-        self.wait(0.5)
+        self.wait(2)
         
         # 展示10只鸡
         count_text = MathTex("10", "\\text{只鸡}", font_size=30)
         count_text.next_to(assumption, RIGHT)
         self.play(Write(count_text))
-        self.wait(0.5)
+        self.wait(2)
         
         # 展示每只鸡2只脚
         per_chicken = MathTex("\\text{每只鸡}", "2", "\\text{只脚}", font_size=30)
         per_chicken.next_to(count_text, DOWN, aligned_edge=LEFT, buff=0.3)
         self.play(Write(per_chicken))
-        self.wait(0.5)
+        self.wait(2)
         
         # 展示乘法计算过程
         calc_process = MathTex("10", "\\times", "2", "=", "20", font_size=30)
@@ -85,8 +85,12 @@ class ChickenRabbitProblem(Scene):
         self.play(Write(delta_text))
         self.wait(1)
         
-        step2 = MathTex(f"{diff_initial}", r"\div", f"{delta_per}", "=", f"{diff_initial//delta_per}",
-                       font_size=30)
+        step2 = MathTex(
+            r"\frac{" + f"{diff_initial}" + "}{" + f"{delta_per}" + "}",
+            "=",
+            f"{diff_initial//delta_per}",
+            font_size=30
+        )
         step2.next_to(step1, DOWN, aligned_edge=RIGHT, buff=0.3)
         self.play(Write(step2))
         self.wait(1.5)
@@ -114,7 +118,7 @@ class ChickenRabbitProblem(Scene):
         def update_diff_text():
             current = (heads - num_rabbit.get_value())*chicken_legs + num_rabbit.get_value()*rabbit_legs
             diff = total_legs_target - current
-            new_text = Text(f"差值：{diff} 只脚", font_size=32, 
+            new_text = Text(f"差值：{diff} 只脚", font_size=30, 
                           color=GREEN if diff == 0 else RED)
             new_text.move_to(diff_text)
             return new_text
